@@ -1,0 +1,2 @@
+* config.mk: Switching to a new toolchain will avoid deleting -msoft-float option
+* lib_arm/board.c: we should check if it is really necessary to add the ethernet initialisation. up to now it is necessary beacause otherwhise linux is not able to boot automatically respectivly loading the rootfs via nfs. Maybe we only need to change a configuration command. For now this command initializes the MAC-Adress of our phy
