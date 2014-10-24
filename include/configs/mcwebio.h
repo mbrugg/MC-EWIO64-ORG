@@ -177,7 +177,7 @@
 //#define DEBUG 3
 #define PHYS_FLASH_1			0x10000000
 //#define PHYS_FLASH_SIZE			0x01000000  /* 16 megs main flash */
-#define PHYS_FLASH_SIZE			0x04000000  /* 64 megs main flash */
+#define PHYS_FLASH_SIZE			0x08000000  /* 64 megs main flash */
 #define CFG_FLASH_BASE			PHYS_FLASH_1
 #define CFG_FLASH_CFI		1	/* flash is CFI conformant	*/
 
@@ -201,7 +201,7 @@
 //#define CFG_FLASH_PROTECTION	1	/* hardware flash protection	*/
 /*normally 128, but cfi_flash() function on line 1150 is buggy*/
 //#define CFG_MAX_FLASH_SECT		256
-#define CFG_MAX_FLASH_SECT		512
+#define CFG_MAX_FLASH_SECT		1024
 
 #define CFG_JFFS2_FIRST_BANK	0
 #define CFG_JFFS2_FIRST_SECTOR	3

@@ -242,37 +242,80 @@ inline uchar * set_addr24 (uchar * paddr)
 {
 //static int i;
 
-	if (paddr >= (uchar *)VIRT_SEC4_OFS)
+	if (paddr >= (uchar *)VIRT_SEC8_OFS)
 		{
-		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC8;
+		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC8 || AT91C_PIO_PC10;
 //		if(!(i&0x8))
 //			{
 //			i=0x8;
 //			printf("\nset_addr24 %x %d %x \n",i,1,paddr);
 //			}
 		}
-	else if (paddr >= (uchar *)VIRT_SEC3_OFS)
+	else if (paddr >= (uchar *)VIRT_SEC7_OFS)
 		{
 		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC8;
+		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC10;
 //		if(!(i&0x4))
 //			{
 //			i=0x4;
 //			printf("\nset_addr24 %x %d %x \n",i,0,paddr);
 //			}
 		}
+	else if (paddr >= (uchar *)VIRT_SEC6_OFS)
+		{
+		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC8 || AT91C_PIO_PC10;
+//		if(!(i&0x4))
+//			{
+//			i=0x4;
+//			printf("\nset_addr24 %x %d %x \n",i,0,paddr);
+//			}
+		}
+	else if (paddr >= (uchar *)VIRT_SEC5_OFS)
+		{
+		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC8;
+		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC10;
+//		if(!(i&0x4))
+//			{
+//			i=0x4;
+//			printf("\nset_addr24 %x %d %x \n",i,0,paddr);
+//			}
+		}
+
+	else if (paddr >= (uchar *)VIRT_SEC4_OFS)
+		{
+		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC10;
+		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC8;
+//		if(!(i&0x4))
+//			{
+//			i=0x4;
+//			printf("\nset_addr24 %x %d %x \n",i,0,paddr);
+//			}
+		}
+	else if (paddr >= (uchar *)VIRT_SEC3_OFS)
+		{
+		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC8 || AT91C_PIO_PC10;
+//		if(!(i&0x4))
+//			{
+//			i=0x4;
+//			printf("\nset_addr24 %x %d %x \n",i,0,paddr);
+//			}
+		}
+
 	else if (paddr >= (uchar *)VIRT_SEC2_OFS)
 		{
 		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC8;
-//		if(!(i&0x2))
+		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC10;
+//		if(!(i&0x4))
 //			{
-//			i=0x2;
-//			printf("\nset_addr24 %x %d %x \n",i,1,paddr);
-//			}		
+//			i=0x4;
+//			printf("\nset_addr24 %x %d %x \n",i,0,paddr);
+//			}
 		}
+
 	else
 		{
 
-		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC8;
+		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC8 || AT91C_PIO_PC10;
 //		if(!(i&0x1))
 //			{
 //			i=0x1;
@@ -429,10 +472,12 @@ unsigned long flash_init (void)
 
 	// Enables PIO control of the pin
 	AT91C_BASE_PIOC->PIO_PER = AT91C_PIO_PC8;
+	AT91C_BASE_PIOC->PIO_PER = AT91C_PIO_PC10;
 	// Set Output Data Register of the pin 
 //	AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC8;
 	// Set Output Enable of the pin 
 	AT91C_BASE_PIOC->PIO_OER = AT91C_PIO_PC8;
+	AT91C_BASE_PIOC->PIO_OER = AT91C_PIO_PC10;
 	// Clear Output Data Register of the pin 
 //	AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC8;
 	// wait 2ms until signal low 
