@@ -227,12 +227,16 @@ static int flash_write_cfibuffer (flash_info_t * info, ulong dest, uchar * cp, i
  * create an address based on the offset and the port width
  */
 #include <asm/arch/AT91RM9200.h>
-#define AT91C_PIO_PC8 ((unsigned int) 1 << 8)
+#define AT91C_PIO_PC8  ((unsigned int) 1 << 8)
+#define AT91C_PIO_PC10 ((unsigned int) 1 << 10)
 #define VIRT_SEC1_OFS 	0x10000000
 #define VIRT_SEC2_OFS 	0x11000000
 #define VIRT_SEC3_OFS 	0x12000000
 #define VIRT_SEC4_OFS	0x13000000
-
+#define VIRT_SEC5_OFS   0x14000000
+#define VIRT_SEC6_OFS   0x15000000
+#define VIRT_SEC7_OFS   0x16000000
+#define VIRT_SEC8_OFS   0x17000000
 
 inline uchar * set_addr24 (uchar * paddr)
 {
