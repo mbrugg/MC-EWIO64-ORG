@@ -45,7 +45,7 @@
  */
 
 /* The DEBUG define must be before common to enable debugging */
-/* #define DEBUG	*/
+//#define DEBUG
 
 #include <common.h>
 #include <asm/processor.h>
@@ -244,7 +244,7 @@ inline uchar * set_addr24 (uchar * paddr)
 
 	if (paddr >= (uchar *)VIRT_SEC8_OFS)
 		{
-		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC8 || AT91C_PIO_PC10;
+		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC8 | AT91C_PIO_PC10;
 //		if(!(i&0x8))
 //			{
 //			i=0x8;
@@ -253,8 +253,8 @@ inline uchar * set_addr24 (uchar * paddr)
 		}
 	else if (paddr >= (uchar *)VIRT_SEC7_OFS)
 		{
-		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC8;
-		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC10;
+		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC8;
+		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC10;
 //		if(!(i&0x4))
 //			{
 //			i=0x4;
@@ -263,7 +263,7 @@ inline uchar * set_addr24 (uchar * paddr)
 		}
 	else if (paddr >= (uchar *)VIRT_SEC6_OFS)
 		{
-		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC8 || AT91C_PIO_PC10;
+		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC8 | AT91C_PIO_PC10;
 //		if(!(i&0x4))
 //			{
 //			i=0x4;
@@ -272,8 +272,8 @@ inline uchar * set_addr24 (uchar * paddr)
 		}
 	else if (paddr >= (uchar *)VIRT_SEC5_OFS)
 		{
-		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC8;
-		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC10;
+		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC8;
+		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC10;
 //		if(!(i&0x4))
 //			{
 //			i=0x4;
@@ -283,8 +283,8 @@ inline uchar * set_addr24 (uchar * paddr)
 
 	else if (paddr >= (uchar *)VIRT_SEC4_OFS)
 		{
-		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC10;
-		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC8;
+		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC10;
+		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC8;
 //		if(!(i&0x4))
 //			{
 //			i=0x4;
@@ -293,7 +293,7 @@ inline uchar * set_addr24 (uchar * paddr)
 		}
 	else if (paddr >= (uchar *)VIRT_SEC3_OFS)
 		{
-		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC8 || AT91C_PIO_PC10;
+		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC8 | AT91C_PIO_PC10;
 //		if(!(i&0x4))
 //			{
 //			i=0x4;
@@ -303,8 +303,8 @@ inline uchar * set_addr24 (uchar * paddr)
 
 	else if (paddr >= (uchar *)VIRT_SEC2_OFS)
 		{
-		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC8;
-		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC10;
+		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC8;
+		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC10;
 //		if(!(i&0x4))
 //			{
 //			i=0x4;
@@ -315,7 +315,7 @@ inline uchar * set_addr24 (uchar * paddr)
 	else
 		{
 
-		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC8 || AT91C_PIO_PC10;
+		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC8 | AT91C_PIO_PC10;
 //		if(!(i&0x1))
 //			{
 //			i=0x1;
@@ -597,6 +597,7 @@ int flash_erase (flash_info_t * info, int s_first, int s_last)
 	int rcode = 0;
 	int prot;
 	flash_sect_t sect;
+	flash_sect_t sect_base = 0x10000000;
 
 
 	if (info->flash_id != FLASH_MAN_CFI) {
@@ -632,10 +633,10 @@ int flash_erase (flash_info_t * info, int s_first, int s_last)
 				break;
 			case CFI_CMDSET_AMD_STANDARD:
 			case CFI_CMDSET_AMD_EXTENDED:
-				flash_unlock_seq (info, sect);
-				flash_write_cmd (info, sect, AMD_ADDR_ERASE_START,
+				flash_unlock_seq (info,0);
+				flash_write_cmd (info, 0, AMD_ADDR_ERASE_START,
 							AMD_CMD_ERASE_START);
-				flash_unlock_seq (info, sect);
+				flash_unlock_seq (info, 0);
 				flash_write_cmd (info, sect, 0, AMD_CMD_ERASE_SECTOR);
 				break;
 			default:
@@ -695,6 +696,7 @@ void flash_print_info (flash_info_t * info)
 			size = info->start[0] + info->size - info->start[i];
 		erased = 1;
 		flash = (volatile unsigned long *) info->start[i];
+
 		size = size >> 2;	/* divide by 4 for longword access */
 
 		set_addr24(flash);
