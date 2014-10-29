@@ -244,7 +244,8 @@ inline uchar * set_addr24 (uchar * paddr)
 
 	if (paddr >= (uchar *)VIRT_SEC8_OFS)
 		{
-		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC8 | AT91C_PIO_PC10;
+		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC10;
+		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC8;
 //		if(!(i&0x8))
 //			{
 //			i=0x8;
@@ -253,8 +254,7 @@ inline uchar * set_addr24 (uchar * paddr)
 		}
 	else if (paddr >= (uchar *)VIRT_SEC7_OFS)
 		{
-		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC8;
-		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC10;
+		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC10 | AT91C_PIO_PC8;
 //		if(!(i&0x4))
 //			{
 //			i=0x4;
@@ -263,7 +263,8 @@ inline uchar * set_addr24 (uchar * paddr)
 		}
 	else if (paddr >= (uchar *)VIRT_SEC6_OFS)
 		{
-		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC8 | AT91C_PIO_PC10;
+		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC10;
+		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC8;
 //		if(!(i&0x4))
 //			{
 //			i=0x4;
@@ -272,8 +273,7 @@ inline uchar * set_addr24 (uchar * paddr)
 		}
 	else if (paddr >= (uchar *)VIRT_SEC5_OFS)
 		{
-		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC8;
-		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC10;
+		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC10 | AT91C_PIO_PC8;
 //		if(!(i&0x4))
 //			{
 //			i=0x4;
@@ -283,8 +283,7 @@ inline uchar * set_addr24 (uchar * paddr)
 
 	else if (paddr >= (uchar *)VIRT_SEC4_OFS)
 		{
-		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC10;
-		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC8;
+		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC10 | AT91C_PIO_PC8;
 //		if(!(i&0x4))
 //			{
 //			i=0x4;
@@ -293,7 +292,8 @@ inline uchar * set_addr24 (uchar * paddr)
 		}
 	else if (paddr >= (uchar *)VIRT_SEC3_OFS)
 		{
-		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC8 | AT91C_PIO_PC10;
+		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC10;
+		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC8;
 //		if(!(i&0x4))
 //			{
 //			i=0x4;
@@ -303,8 +303,7 @@ inline uchar * set_addr24 (uchar * paddr)
 
 	else if (paddr >= (uchar *)VIRT_SEC2_OFS)
 		{
-		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC8;
-		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC10;
+		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC10 | AT91C_PIO_PC8;
 //		if(!(i&0x4))
 //			{
 //			i=0x4;
@@ -315,7 +314,8 @@ inline uchar * set_addr24 (uchar * paddr)
 	else
 		{
 
-		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC8 | AT91C_PIO_PC10;
+		AT91C_BASE_PIOC->PIO_SODR = AT91C_PIO_PC10;
+		AT91C_BASE_PIOC->PIO_CODR = AT91C_PIO_PC8;
 //		if(!(i&0x1))
 //			{
 //			i=0x1;
